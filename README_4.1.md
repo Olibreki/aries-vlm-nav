@@ -50,7 +50,7 @@ cd ~/ros2_ws/src/aries-vlm-nav/src/vlm_nav_bridge && python3 -m pytest -q
 
 - `deproject` and `standoff_pose` are unit-tested (10 tests: axis directions, depth scaling, radius, facing direction, robot side, already-inside cases).
 - Depth, deprojection and the tf2 transform to the marker were checked in the sim (marker against the lidar range of about 4.7 m).
-- The standoff pose and the Nav2 `goToPose` path have **not yet been run end to end in the sim**. Run the three commands above and note the result here before presenting it as working.
+- - Ran end to end in the TurtleBot3 world sim with Nav2 and AMCL (initial pose x=-2.0, y=-0.5): the pixel (320, 240) gave depth 4.55 m, the target landed at (2.98, -0.88) in the map frame, the standoff goal was placed 0.6 m short of it facing it, and Nav2 returned SUCCEEDED. With a 0.6 m standoff the robot spent a long time at about 0.04 m from the goal before finishing, which looks like the standoff being close to the inflated costmap zone; a larger radius is the first thing to try if that recurs.
 
 ## Design notes
 
