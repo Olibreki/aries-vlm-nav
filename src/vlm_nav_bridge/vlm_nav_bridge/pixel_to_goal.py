@@ -9,9 +9,6 @@ Takes a pixel, turns it into a Nav2 goal.
                     ->  RViz Marker                          (verify visually!)
                     ->  standoff pose 0.6 m short, facing it [YOUR MATH]
                     ->  nav2_simple_commander.goToPose()
-
-Two functions are left for you: deproject() and standoff_pose().
-Everything else is plumbing. Look for TODO(Oli).
 """
 
 import math
@@ -108,7 +105,7 @@ class PixelToGoal(Node):
 
     def deproject(self, u, v, d):
         """
-        TODO(Oli): pixel + depth  ->  3D point in the camera OPTICAL frame.
+        pixel + depth  ->  3D point in the camera OPTICAL frame.
 
         You have, as instance attributes:
             self.fx, self.fy    focal lengths, in PIXELS
@@ -122,10 +119,11 @@ class PixelToGoal(Node):
         Returns:
             (X, Y, Z) as floats, metres, in camera_depth_optical_frame
             (+Z out of the lens, +X right, +Y down)
-
-        Three lines. You wrote them on paper.
         """
-        raise NotImplementedError('deproject() — write the three lines')
+        X = (u - self.cx) * d / self.fx
+        Y = (v - self.cy) * d / self.fy
+        Z = d
+        return (X, Y, Z)
 
     def standoff_pose(self, mug_xy, robot_xy, radius):
         """
